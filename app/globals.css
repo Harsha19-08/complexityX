@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark-first tokens. Values are space-separated RGB so Tailwind can apply alpha. */
+:root {
+  --bg: 8 10 18;
+  --surface: 14 17 28;
+  --surface-2: 20 24 40;
+  --line: 36 42 66;
+  --fg: 232 236 247;
+  --muted: 132 142 168;
+  --accent: 129 140 248;
+  --accent-2: 167 139 250;
+  --good: 52 211 153;
+  --warn: 251 191 36;
+  --hot: 251 146 60;
+  --bad: 248 113 113;
+  color-scheme: dark;
+}
+.light {
+  --bg: 246 247 251;
+  --surface: 255 255 255;
+  --surface-2: 240 242 249;
+  --line: 224 228 240;
+  --fg: 16 20 36;
+  --muted: 96 106 132;
+  --accent: 79 70 229;
+  --accent-2: 124 58 237;
+  --good: 5 150 105;
+  --warn: 180 120 0;
+  --hot: 217 95 10;
+  --bad: 220 38 38;
+  color-scheme: light;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  @apply bg-bg text-fg font-sans antialiased;
+  background-image:
+    radial-gradient(70% 45% at 50% -8%, rgb(var(--accent) / 0.13), transparent 70%),
+    radial-gradient(40% 30% at 92% 4%, rgb(var(--accent-2) / 0.08), transparent 70%);
+  background-repeat: no-repeat;
+  font-feature-settings: "cv11", "ss01";
+}
+::selection { background: rgb(var(--accent) / 0.3); }
+
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; border-radius: 6px; }
+
+/* Scrollbars */
+* { scrollbar-width: thin; scrollbar-color: rgb(var(--line)) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgb(var(--line)); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+
+/* Glass — used only on the sticky nav and dialogs */
+.glass {
+  background: rgb(var(--bg) / 0.72);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+}
+
+/* Code editor hotspot decorations (Monaco) */
+.cx-hotspot-line { background: rgb(251 146 60 / 0.12); }
+.cx-hotspot-bar { background: rgb(251 146 60); width: 3px !important; margin-left: 3px; border-radius: 2px; }
+
+/* Tokens for the static highlighter */
+.tok-kw { color: #c4b5fd; }
+.tok-str { color: #86efac; }
+.tok-com { color: #6b7699; font-style: italic; }
+.tok-num { color: #fdba74; }
+.tok-fn { color: #93c5fd; }
+.tok-type { color: #67e8f9; }
+.light .tok-kw { color: #7c3aed; }
+.light .tok-str { color: #15803d; }
+.light .tok-com { color: #8b93ad; }
+.light .tok-num { color: #c2410c; }
+.light .tok-fn { color: #1d4ed8; }
+.light .tok-type { color: #0e7490; }
+
+/* Loading shimmer bar */
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgb(var(--accent) / 0.55) 50%, transparent 100%);
+  background-size: 200% 100%;
+}
+
+/* Range input */
+input[type="range"] { accent-color: rgb(var(--accent)); }
+
+dialog::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
